@@ -201,3 +201,27 @@ TEST(GoalUndoTest, test_moreThanOneGoal)
 	test.undoGoal();
 	ASSERT_EQ(test.getOperations(),op);
 }
+TEST(GoalUndoTest, test_undoGoal)
+{
+	GoalUndo test;
+	string op = "newoperation";
+	string goal = "newgoal";
+	string empty = "";
+	test.addOperation(goal,op);
+	test.undoGoal();
+	ASSERT_EQ(test.getGoal(),empty);
+}
+TEST(GoalUndoTest, test_undoGoalMoreThanOneGoal)
+{
+	GoalUndo test;
+	string op = "newoperation";
+	string goal = "newgoal";
+	string op2 = "anotheroperation";
+	string goal2 = "anothergoal";
+	string empty = "";
+	test.addOperation(goal,op);
+	test.addOperation(goal2,op2);
+	test.undoGoal();
+	test.undoGoal();
+	ASSERT_EQ(test.getGoal(),empty);
+}

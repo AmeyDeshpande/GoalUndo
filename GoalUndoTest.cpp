@@ -140,3 +140,64 @@ TEST(GoalUndoTest, test_getGoal)
 	test.undoOperation();
 	ASSERT_EQ(test.getGoal(),empty);
 }
+TEST(GoalUndoTest, test_undoOperationWithArg)
+{
+	GoalUndo test;
+	string op = "newoperation";
+	string goal = "newgoal";
+	string empty = "";
+	test.addOperation(goal,op);
+	test.undoOperation("newoperation");
+	ASSERT_EQ(test.getGoal(),goal);
+}
+TEST(GoalUndoTest, test_undoOperationWithArg2)
+{
+	GoalUndo test;
+	string op = "newoperation";
+	string goal = "newgoal";
+	string empty = "";
+	test.addOperation(goal,op);
+	test.undoOperation("newoperation");
+	test.undoOperation("newoperation");
+	ASSERT_EQ(test.getGoal(),goal);
+}
+TEST(GoalUndoTest, test_undoOperationWithArg3)
+{
+	GoalUndo test;
+	test.undoOperation("newoperation");	
+	string op = "newoperation";
+	string op2 = "anotheroperation";
+	string goal = "newgoal";
+	string empty = "";
+	test.addOperation(goal,op);
+	test.addOperation(goal,op2);
+	test.undoOperation("any_operation");
+	test.undoOperation("newoperation");
+	ASSERT_EQ(test.getGoal(),goal);
+}
+TEST(GoalUndoTest, test_undoOperationWithArg4)
+{
+	GoalUndo test;
+	string op = "newoperation";
+	string goal = "newgoal";   
+	string empty = "";
+	test.addOperation(goal,op);	
+	test.undoOperation("any_operation");
+	test.undoOperation("newoperation");
+	test.undoOperation("any_operation");
+	ASSERT_EQ(test.getGoal(),goal);
+}
+TEST(GoalUndoTest, test_moreThanOneGoal)
+{
+	GoalUndo test;
+	string op = "newoperation";
+	string goal = "newgoal";
+	string empty = "";
+	string goal2 = "anothergoal";
+	string op2 = "anotheroperation";
+	test.addOperation(goal,op);
+	test.addOperation(goal2,op2);
+	ASSERT_EQ(test.getOperations(),op2);
+	test.undoGoal();
+	ASSERT_EQ(test.getOperations(),op);
+}

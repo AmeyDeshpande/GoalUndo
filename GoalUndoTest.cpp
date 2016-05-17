@@ -58,4 +58,26 @@ TEST(GoalUndoTest, test_addOpertionAndUndo)
 	test.undoOperation(op);
 	ASSERT_EQ(test.getGoal(),op);
 }
+TEST(GoalUndoTest, test_getOperations)
+{
+	GoalUndo test;
+	string op = "newoperation";
+	string goal = "newgoal";
+	string op2 = "anotheroperation";
+	string resultant_op = "newoperation anotheroperation";
+	test.addOperation(goal,op);
+	test.addOperation(op2);
+	ASSERT_EQ(test.getOperations(),resultant_op);
+}
+TEST(GoalUndoTest, test_getOperations2)
+{
+	GoalUndo test;
+	string op = "newoperation";
+	string goal = "newgoal";
+	string op2 = "anotheroperation";
+	string resultant_op = "newoperation anotheroperation";
+	test.addOperation(goal,op);
+	test.addOperation	(op2);
+	ASSERT_EQ(test.getOperations(),resultant_op);
+}
 
